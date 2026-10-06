@@ -1,0 +1,383 @@
+/* Font Hero.css se inherit hota hai */
+
+.cc-section {
+  margin: clamp(20px, 4vw, 32px) 0;
+  font-family: inherit;
+}
+
+/* ---------- Card ---------- */
+.cc-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(16px, 3vw, 28px);
+  background: linear-gradient(160deg, rgba(15, 23, 42, 0.55), rgba(3, 7, 18, 0.95));
+  border: 1px solid rgba(56, 189, 248, 0.18);
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.is-visible .cc-card {
+  opacity: 1;
+  transform: none;
+}
+
+/* Grid background: kinare par fade hota hai */
+.cc-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(56, 189, 248, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56, 189, 248, 0.05) 1px, transparent 1px);
+  background-size: 28px 28px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 0%, #000 20%, transparent 80%);
+          mask-image: radial-gradient(ellipse 80% 80% at 50% 0%, #000 20%, transparent 80%);
+  opacity: 0;
+  transition: opacity 1.2s ease 0.3s;
+}
+.is-visible .cc-card::before {
+  opacity: 1;
+}
+
+/* Top accent line: scroll par draw hoti hai */
+.cc-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #38bdf8, #818cf8, #d4af37);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
+}
+.is-visible .cc-card::after {
+  transform: scaleX(1);
+}
+
+/* ---------- Top bar ---------- */
+.cc-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+  margin-bottom: clamp(16px, 3vw, 22px);
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s ease 0.2s, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
+}
+.is-visible .cc-top {
+  opacity: 1;
+  transform: none;
+}
+
+.cc-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 5px 13px;
+  font-family: 'Fira Code', monospace;
+  font-size: 11px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 999px;
+}
+
+.cc-dot {
+  position: relative;
+  flex-shrink: 0;
+  width: 7px;
+  height: 7px;
+  background: #34d399;
+  border-radius: 50%;
+}
+/* Sirf ek chhota ring pulse (infinite glow nahi) */
+.cc-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #34d399;
+  opacity: 0;
+}
+.is-visible .cc-dot::after {
+  animation: ccPing 2.4s ease-out 1s infinite;
+}
+@keyframes ccPing {
+  0%   { opacity: 0.6; transform: scale(1); }
+  70%, 100% { opacity: 0; transform: scale(2.6); }
+}
+
+/* Typing effect: text ek ek akshar karke aata hai */
+.cc-status-text {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 0;
+}
+.is-visible .cc-status-text {
+  width: calc(var(--ch) * 1ch);
+  transition: width 1.1s steps(var(--ch), end) 0.5s;
+}
+
+.cc-caret {
+  width: 1px;
+  height: 12px;
+  margin-left: -6px;
+  background: #38bdf8;
+  animation: ccBlink 1s steps(1) infinite;
+}
+@keyframes ccBlink {
+  50% { opacity: 0; }
+}
+
+.cc-brand {
+  font-family: 'Fira Code', monospace;
+  font-size: 11.5px;
+  color: #64748b;
+}
+.cc-brand span {
+  font-weight: 600;
+  color: #818cf8;
+}
+
+/* ---------- Action grid ---------- */
+.cc-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(10px, 2vw, 14px);
+  margin: 0 0 clamp(12px, 2vw, 16px);
+  padding: 0;
+  list-style: none;
+}
+
+.cc-cell {
+  min-width: 0;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(0.4s + var(--i) * 0.1s);
+}
+.is-visible .cc-cell {
+  opacity: 1;
+  transform: none;
+}
+
+.cc-action {
+  --c: 56, 189, 248;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 18px;
+  height: 100%;
+  min-height: 120px;
+  padding: 14px;
+  overflow: hidden;
+  text-decoration: none;
+  background: rgba(15, 23, 42, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover par neeche se color wash */
+.cc-action::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(var(--c), 0.14), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cc-action:hover,
+.cc-action:focus-visible {
+  transform: translateY(-3px);
+  border-color: rgba(var(--c), 0.55);
+  box-shadow: 0 12px 28px rgba(var(--c), 0.16);
+}
+.cc-action:hover::before,
+.cc-action:focus-visible::before {
+  opacity: 1;
+}
+.cc-action:focus-visible {
+  outline: 2px solid rgb(var(--c));
+  outline-offset: 3px;
+}
+
+.cc-action-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cc-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  color: rgb(var(--c));
+  background: rgba(var(--c), 0.1);
+  border: 1px solid rgba(var(--c), 0.3);
+  border-radius: 9px;
+  transition: color 0.25s ease, background 0.25s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.cc-action:hover .cc-icon {
+  color: #04070d;
+  background: rgb(var(--c));
+  transform: rotate(-8deg) scale(1.08);
+}
+
+.cc-code {
+  font-family: 'Fira Code', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.cc-action-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-right: 22px;
+}
+.cc-action-title {
+  font-size: clamp(13.5px, 1.8vw, 14.5px);
+  font-weight: 600;
+  line-height: 1.3;
+  color: #f8fafc;
+}
+.cc-action-sub {
+  font-size: 12px;
+  line-height: 1.4;
+  color: #94a3b8;
+}
+
+.cc-arrow {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  font-size: 15px;
+  color: rgb(var(--c));
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.cc-action:hover .cc-arrow,
+.cc-action:focus-visible .cc-arrow {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Metrics terminal bar ---------- */
+.cc-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: clamp(12px, 2vw, 16px) clamp(14px, 2.5vw, 20px);
+  background: rgba(3, 7, 18, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.6s ease 0.85s, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.85s;
+}
+.is-visible .cc-metrics {
+  opacity: 1;
+  transform: none;
+}
+
+.cc-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.cc-metric + .cc-metric {
+  padding-left: 14px;
+  border-left: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.cc-metric-label {
+  font-family: 'Fira Code', monospace;
+  font-size: 10px;
+  letter-spacing: 0.6px;
+  color: #64748b;
+}
+.cc-metric-value {
+  font-family: 'Fira Code', monospace;
+  font-size: clamp(14px, 2.2vw, 18px);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: #38bdf8;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 960px) {
+  .cc-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 560px) {
+  .cc-card { border-radius: 14px; }
+  .cc-action { min-height: 108px; gap: 14px; padding: 12px; }
+  .cc-action-sub { font-size: 11.5px; }
+  .cc-arrow { opacity: 1; transform: none; } /* touch par hover nahi hota */
+
+  .cc-metrics { grid-template-columns: 1fr; gap: 0; padding: 4px 14px; }
+  .cc-metric {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 0;
+  }
+  .cc-metric + .cc-metric {
+    padding-left: 0;
+    border-left: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+  }
+}
+
+@media (max-width: 380px) {
+  .cc-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- Accessibility ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .cc-card,
+  .cc-card::before,
+  .cc-card::after,
+  .cc-top,
+  .cc-cell,
+  .cc-metrics {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .cc-status-text { width: auto !important; transition: none !important; }
+  .cc-dot::after,
+  .cc-caret { animation: none !important; }
+  .cc-caret { display: none; }
+}

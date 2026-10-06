@@ -1,0 +1,356 @@
+/* Font Hero.css se inherit hota hai */
+
+.ct-section {
+  --accent: 56, 189, 248;
+  margin: clamp(20px, 4vw, 32px) 0;
+  font-family: inherit;
+  scroll-margin-top: 80px; /* fixed navbar ke liye */
+}
+
+/* ---------- Header ---------- */
+.ct-header {
+  max-width: 640px;
+  margin: 0 auto clamp(18px, 3vw, 26px);
+  text-align: center;
+}
+
+.ct-tag {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 3px 10px;
+  font-family: 'Fira Code', monospace;
+  font-size: 10.5px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 999px;
+}
+
+.ct-title {
+  margin: 0 0 10px;
+  font-size: clamp(19px, 2.8vw, 28px);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.4px;
+  color: #f8fafc;
+}
+.ct-title span { color: #38bdf8; }
+
+.ct-lead {
+  margin: 0;
+  font-size: clamp(13px, 1.5vw, 14px);
+  line-height: 1.65;
+  color: #94a3b8;
+}
+
+.ct-reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(0.05s + var(--i) * 0.1s);
+}
+.is-visible .ct-reveal {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Card ---------- */
+.ct-card {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(14px, 3vw, 26px);
+  background: linear-gradient(160deg, rgba(15, 23, 42, 0.55), rgba(5, 8, 15, 0.9));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.25s,
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.25s;
+}
+.ct-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #38bdf8, #818cf8, #d4af37);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1) 0.5s;
+}
+.is-visible .ct-card {
+  opacity: 1;
+  transform: none;
+}
+.is-visible .ct-card::before {
+  transform: scaleX(1);
+}
+
+/* ---------- Layout ---------- */
+.ct-grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: clamp(16px, 3vw, 28px);
+  align-items: start;
+}
+.ct-info,
+.ct-form {
+  min-width: 0;
+}
+
+/* ---------- Info cards ---------- */
+.ct-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ct-info-item {
+  --c: 56, 189, 248;
+  opacity: 0;
+  transform: translateX(-14px);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(0.5s + var(--i) * 0.1s);
+}
+.is-visible .ct-info-item {
+  opacity: 1;
+  transform: none;
+}
+
+.ct-info-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+a.ct-info-link:hover,
+a.ct-info-link:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(var(--c), 0.5);
+  background: rgba(var(--c), 0.06);
+}
+a.ct-info-link:focus-visible {
+  outline: 2px solid rgb(var(--c));
+  outline-offset: 3px;
+}
+
+.ct-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  color: rgb(var(--c));
+  background: rgba(var(--c), 0.1);
+  border: 1px solid rgba(var(--c), 0.3);
+  border-radius: 10px;
+  transition: color 0.25s ease, background 0.25s ease;
+}
+a.ct-info-link:hover .ct-icon {
+  color: #04070d;
+  background: rgb(var(--c));
+}
+
+.ct-info-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+.ct-info-text small {
+  font-family: 'Fira Code', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #64748b;
+}
+.ct-info-text strong {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #f1f5f9;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Form ---------- */
+.ct-form {
+  padding: clamp(14px, 2.5vw, 20px);
+  background: rgba(3, 7, 18, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 14px;
+
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s ease 0.5s, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.5s;
+}
+.is-visible .ct-form {
+  opacity: 1;
+  transform: none;
+}
+
+.ct-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.ct-field {
+  min-width: 0;
+  margin: 0 0 12px;
+  padding: 0;
+  border: 0;
+}
+.ct-field label,
+.ct-services legend {
+  display: block;
+  margin-bottom: 5px;
+  padding: 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: #cbd5e1;
+}
+
+.ct-field input,
+.ct-field textarea {
+  width: 100%;
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 13.5px; /* 16px se kam hone par iOS zoom karta hai, neeche mobile par fix hai */
+  color: #f8fafc;
+  background: rgba(10, 15, 28, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.ct-field input::placeholder,
+.ct-field textarea::placeholder {
+  color: #475569;
+}
+.ct-field input:focus,
+.ct-field textarea:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+}
+.ct-field textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+
+/* Service chips */
+.ct-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.ct-chip {
+  padding: 5px 12px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  color: #cbd5e1;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+.ct-chip:hover {
+  border-color: rgba(56, 189, 248, 0.5);
+}
+.ct-chip.is-on {
+  color: #fff;
+  background: rgba(56, 189, 248, 0.16);
+  border-color: #38bdf8;
+}
+.ct-chip:focus-visible {
+  outline: 2px solid #38bdf8;
+  outline-offset: 2px;
+}
+
+/* Buttons */
+.ct-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 4px;
+}
+.ct-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 14px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  border: 0;
+  border-radius: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.ct-btn svg { width: 16px; height: 16px; }
+.ct-btn:hover { transform: translateY(-2px); }
+.ct-btn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+.ct-btn--wa {
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  box-shadow: 0 4px 14px rgba(22, 163, 74, 0.28);
+}
+.ct-btn--wa:hover { box-shadow: 0 8px 20px rgba(22, 163, 74, 0.42); }
+.ct-btn--mail {
+  background: linear-gradient(135deg, #0ea5e9, #6366f1);
+  box-shadow: 0 4px 14px rgba(14, 165, 233, 0.28);
+}
+.ct-btn--mail:hover { box-shadow: 0 8px 20px rgba(14, 165, 233, 0.42); }
+
+.ct-status {
+  min-height: 18px;
+  margin: 10px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #34d399;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 860px) {
+  .ct-grid { grid-template-columns: 1fr; }
+  .ct-info { display: grid; grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 560px) {
+  .ct-card { border-radius: 14px; }
+  .ct-info { grid-template-columns: 1fr; }
+  .ct-row { grid-template-columns: 1fr; gap: 0; }
+  .ct-actions { grid-template-columns: 1fr; }
+  .ct-field input,
+  .ct-field textarea { font-size: 16px; } /* iOS auto-zoom band */
+}
+
+/* ---------- Accessibility ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .ct-reveal,
+  .ct-card,
+  .ct-card::before,
+  .ct-info-item,
+  .ct-form {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

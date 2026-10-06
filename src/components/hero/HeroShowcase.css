@@ -1,0 +1,255 @@
+/* Font Hero.css se inherit hota hai */
+
+.hw-section {
+  margin: clamp(20px, 4vw, 32px) 0;
+  font-family: inherit;
+}
+
+/* ---------- Header ---------- */
+.hw-header {
+  margin-bottom: clamp(18px, 3vw, 26px);
+  text-align: center;
+}
+
+.hw-tag {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 3px 10px;
+  font-family: 'Fira Code', monospace;
+  font-size: 10.5px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 999px;
+}
+
+.hw-title {
+  margin: 0;
+  font-size: clamp(18px, 2.6vw, 26px);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.3px;
+  color: #f8fafc;
+}
+.hw-title span {
+  color: #38bdf8;
+}
+
+.hw-reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(0.05s + var(--i) * 0.1s);
+}
+.is-visible .hw-reveal {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Grid ---------- */
+.hw-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(12px, 2.5vw, 20px);
+}
+
+/* ---------- Card ---------- */
+.hw-card {
+  --accent: 56, 189, 248;
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  padding: clamp(18px, 3vw, 26px);
+  background: linear-gradient(160deg, rgba(15, 23, 42, 0.55), rgba(5, 8, 15, 0.9));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.3s ease, box-shadow 0.3s ease;
+  transition-delay: calc(0.25s + var(--t) * 0.15s);
+}
+.hw-card--product  { --accent: 56, 189, 248; }
+.hw-card--academic { --accent: 129, 140, 248; }
+
+/* Top accent line: scroll par draw hoti hai */
+.hw-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, rgb(var(--accent)), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(0.45s + var(--t) * 0.15s);
+}
+
+.is-visible .hw-card {
+  opacity: 1;
+  transform: none;
+}
+.is-visible .hw-card::before {
+  transform: scaleX(1);
+}
+/* Reveal ke baad hover turant ho */
+.is-visible .hw-card:hover {
+  transition-delay: 0s;
+  transform: translateY(-3px);
+  border-color: rgba(var(--accent), 0.4);
+  box-shadow: 0 16px 36px rgba(var(--accent), 0.12);
+}
+
+/* ---------- Card head ---------- */
+.hw-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.hw-card-head h3 {
+  margin: 0;
+  font-size: clamp(15px, 2vw, 17px);
+  font-weight: 700;
+  line-height: 1.3;
+  color: #f8fafc;
+}
+
+.hw-badge {
+  flex-shrink: 0;
+  padding: 3px 10px;
+  font-family: 'Fira Code', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgb(var(--accent));
+  background: rgba(var(--accent), 0.1);
+  border: 1px solid rgba(var(--accent), 0.25);
+  border-radius: 999px;
+}
+
+/* ---------- Steps (vertical timeline) ---------- */
+.hw-steps {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Numbers ko jodne wali line: upar se neeche draw hoti hai */
+.hw-steps::before {
+  content: '';
+  position: absolute;
+  top: 14px;
+  bottom: 14px;
+  left: 14px;
+  width: 1px;
+  background: linear-gradient(to bottom, rgba(var(--accent), 0.55), rgba(var(--accent), 0.08));
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(0.6s + var(--t) * 0.15s);
+}
+.is-visible .hw-steps::before {
+  transform: scaleY(1);
+}
+
+.hw-step {
+  position: relative;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(0.55s + var(--t) * 0.15s + var(--i) * 0.12s);
+}
+.is-visible .hw-step {
+  opacity: 1;
+  transform: none;
+}
+
+.hw-step-num {
+  position: relative; /* line ke upar dikhe */
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  font-family: 'Fira Code', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: rgb(var(--accent));
+  background: #070b14; /* line ko number ke peeche chhupane ke liye */
+  border: 1px solid rgba(var(--accent), 0.4);
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px #070b14;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+.hw-step:hover .hw-step-num {
+  color: #04070d;
+  background: rgb(var(--accent));
+}
+
+.hw-step-body {
+  min-width: 0;
+  padding-top: 2px;
+}
+.hw-step-body h4 {
+  margin: 0 0 3px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #f1f5f9;
+}
+.hw-step-body p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: #94a3b8;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 860px) {
+  .hw-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .hw-card { border-radius: 14px; }
+  .hw-card-head { flex-wrap: wrap; gap: 8px; }
+  .hw-steps { gap: 16px; }
+  .hw-step { gap: 12px; }
+  .hw-step-body h4 { font-size: 13.5px; }
+  .hw-step-body p { font-size: 12.5px; }
+}
+
+/* ---------- Accessibility ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .hw-reveal,
+  .hw-card,
+  .hw-card::before,
+  .hw-steps::before,
+  .hw-step {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

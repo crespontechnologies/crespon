@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap');
+
+.scroll-reveal-wrap {
+    margin: 40px 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.scroll-reveal-container {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(10, 15, 28, 0.98));
+    border: 1px solid rgba(129, 140, 248, 0.22);
+    border-radius: 20px;
+    padding: 35px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+    
+    /* Initial state before scroll activation */
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Activated state when scrolled into view */
+.scroll-reveal-container.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.scroll-reveal-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.scroll-reveal-tag {
+    font-family: 'Fira Code', monospace;
+    font-size: 11.5px;
+    color: #38bdf8;
+    background: rgba(56, 189, 248, 0.12);
+    padding: 5px 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    display: inline-block;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.scroll-reveal-header h2 {
+    font-size: 26px;
+    font-weight: 800;
+    color: #f8fafc;
+    margin: 0;
+    letter-spacing: -0.5px;
+}
+
+.scroll-reveal-header h2 span {
+    color: #818cf8;
+}
+
+/* Feature Cards Grid */
+.scroll-features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.scroll-feature-card {
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid rgba(129, 140, 248, 0.18);
+    border-radius: 14px;
+    padding: 22px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+}
+
+.scroll-feature-card:hover {
+    border-color: #38bdf8;
+    background: rgba(30, 41, 59, 0.85);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(56, 189, 248, 0.2);
+}
+
+.feature-num {
+    font-family: 'Fira Code', monospace;
+    font-size: 11px;
+    color: #38bdf8;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.scroll-feature-card h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #f8fafc;
+    margin: 0 0 6px 0;
+}
+
+.scroll-feature-card p {
+    font-size: 13px;
+    color: #94a3b8;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Responsive design */
+@media (max-width: 850px) {
+    .scroll-features-grid {
+        grid-template-columns: 1fr;
+    }
+    .scroll-reveal-container {
+        padding: 22px;
+    }
+}

@@ -1,0 +1,334 @@
+/* Font Hero.css se inherit hota hai */
+
+.hs-wrap {
+  position: relative;
+  overflow: hidden;
+  margin: clamp(20px, 4vw, 32px) 0;
+  padding: clamp(16px, 3vw, 28px);
+  font-family: inherit;
+  background: linear-gradient(160deg, rgba(15, 23, 42, 0.55), rgba(5, 8, 15, 0.9));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hs-wrap.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Top accent line: scroll par draw hoti hai */
+.hs-wrap::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #38bdf8, #818cf8, #d4af37);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
+}
+.hs-wrap.is-visible::before {
+  transform: scaleX(1);
+}
+
+/* ---------- Layout ---------- */
+.hs-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(20px, 4vw, 36px);
+  align-items: center;
+}
+.hs-content,
+.hs-media {
+  min-width: 0; /* grid overflow se bachne ke liye */
+}
+
+/* ---------- Content ---------- */
+.hs-content {
+  min-height: 230px; /* slides badalne par height jump na ho */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+/* Har slide change par stagger */
+.hs-in {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: hsIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: calc(0.05s + var(--i) * 0.07s);
+}
+@keyframes hsIn {
+  to { opacity: 1; transform: none; }
+}
+
+.hs-tag {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 3px 10px;
+  font-family: 'Fira Code', monospace;
+  font-size: 10.5px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 999px;
+}
+
+.hs-title {
+  margin: 0 0 10px;
+  font-size: clamp(18px, 2.6vw, 26px);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.3px;
+  color: #f8fafc;
+}
+
+.hs-desc {
+  margin: 0 0 16px;
+  max-width: 520px;
+  font-size: clamp(13px, 1.5vw, 14px);
+  line-height: 1.65;
+  color: #94a3b8;
+}
+
+.hs-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 20px;
+  padding: 0;
+  list-style: none;
+}
+.hs-features li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 11px;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: #cbd5e1;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 999px;
+}
+.hs-features li::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #d4af37;
+}
+
+.hs-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  border: 0;
+  border-radius: 999px;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.hs-cta span {
+  transition: transform 0.2s ease;
+}
+.hs-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(99, 102, 241, 0.45);
+}
+.hs-cta:hover span {
+  transform: translateX(3px);
+}
+
+/* ---------- Image ---------- */
+.hs-media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  max-height: 300px;
+  width: 100%;
+  overflow: hidden;
+  background: #060913;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+.hs-img {
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.06);
+  transition: opacity 0.7s ease, transform 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hs-img.is-active {
+  opacity: 0.95;
+  transform: scale(1);
+}
+
+.hs-media-shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(5, 8, 15, 0.6), transparent 45%);
+}
+
+.hs-counter {
+  position: absolute;
+  left: 12px;
+  bottom: 10px;
+  font-family: 'Fira Code', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  color: #f1f5f9;
+  font-variant-numeric: tabular-nums;
+}
+.hs-counter i {
+  font-style: normal;
+  color: #94a3b8;
+}
+
+/* ---------- Controls ---------- */
+.hs-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.hs-dots {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.hs-dot {
+  padding: 10px 3px; /* bada tap area */
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.hs-dot-bar {
+  position: relative;
+  display: block;
+  width: 8px;
+  height: 6px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1), background 0.25s ease;
+}
+.hs-dot:hover .hs-dot-bar {
+  background: rgba(255, 255, 255, 0.28);
+}
+.hs-dot.is-active .hs-dot-bar {
+  width: 30px;
+}
+
+/* Active dot ke andar autoplay progress */
+.hs-dot-fill {
+  position: absolute;
+  inset: 0;
+  background: #818cf8;
+  border-radius: inherit;
+  transform-origin: left;
+  transform: scaleX(1); /* autoplay band ho to full dikhe */
+}
+.hs-dot-fill.is-running {
+  transform: scaleX(0);
+  animation: hsFill linear forwards;
+}
+.hs-dot-fill.is-paused {
+  animation-play-state: paused;
+}
+@keyframes hsFill {
+  to { transform: scaleX(1); }
+}
+
+.hs-arrows {
+  display: flex;
+  gap: 8px;
+}
+.hs-arrow {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  font-size: 14px;
+  color: #cbd5e1;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.hs-arrow:hover {
+  color: #fff;
+  background: rgba(129, 140, 248, 0.15);
+  border-color: rgba(129, 140, 248, 0.5);
+}
+
+/* Keyboard focus */
+.hs-cta:focus-visible,
+.hs-arrow:focus-visible,
+.hs-dot:focus-visible .hs-dot-bar {
+  outline: 2px solid #38bdf8;
+  outline-offset: 3px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 860px) {
+  .hs-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  /* Mobile par image upar, text neeche */
+  .hs-media {
+    order: -1;
+    aspect-ratio: 16 / 9;
+    max-height: 220px;
+  }
+  .hs-content {
+    min-height: 250px;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .hs-wrap { border-radius: 14px; }
+  .hs-content { min-height: 285px; }
+  .hs-features li { font-size: 11px; padding: 3px 9px; }
+  .hs-cta { width: 100%; justify-content: center; }
+  .hs-arrow { width: 36px; height: 36px; }
+}
+
+/* ---------- Accessibility ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .hs-wrap,
+  .hs-wrap::before,
+  .hs-in,
+  .hs-img,
+  .hs-dot-bar {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+  .hs-img:not(.is-active) { opacity: 0 !important; }
+}

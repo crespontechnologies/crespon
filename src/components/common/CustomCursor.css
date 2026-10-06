@@ -1,0 +1,246 @@
+/* ---------- Hide the native cursor (only while the custom one is active) ---------- */
+html.has-custom-cursor,
+html.has-custom-cursor * {
+    cursor: none !important;
+}
+
+/* Text fields keep the normal I-beam so typing feels right */
+html.has-custom-cursor :is(
+    input:not([type="button"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]),
+    textarea,
+    [contenteditable=""],
+    [contenteditable="true"]
+) {
+    cursor: text !important;
+}
+
+/* ---------- Layer ---------- */
+.cursor-layer {
+    --c: #38bdf8;
+    --c2: #818cf8;
+    position: fixed;
+    inset: 0;
+    z-index: 100000; /* above navbar and preloader */
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.cursor-layer.is-visible {
+    opacity: 1;
+}
+
+.cursor-layer * {
+    box-sizing: border-box;
+}
+
+/* ---------- Dot (exact pointer position) ---------- */
+.cursor-dot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    will-change: transform;
+    transition: opacity 0.2s ease;
+}
+
+.cursor-dot-core {
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--c);
+    box-shadow: 0 0 8px var(--c), 0 0 18px rgba(56, 189, 248, 0.55);
+    transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.25s ease;
+}
+
+.is-lock .cursor-dot-core,
+.is-hover .cursor-dot-core {
+    transform: scale(0.7);
+    background: #e0f2fe;
+}
+
+.is-down .cursor-dot-core {
+    transform: scale(0.5);
+}
+
+/* ---------- Reticle (lagging ring that locks onto elements) ---------- */
+.cursor-reticle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    will-change: transform, width, height;
+    transition: opacity 0.2s ease;
+}
+
+.cursor-reticle > span,
+.cursor-reticle > i {
+    position: absolute;
+    display: block;
+}
+
+.reticle-ring {
+    inset: 0;
+    border: 1px solid rgba(56, 189, 248, 0.5);
+    border-radius: 50%;
+    transition: opacity 0.2s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Slowly rotating dashed outer ring */
+.reticle-spin {
+    inset: -6px;
+    border: 1px dashed rgba(129, 140, 248, 0.5);
+    border-radius: 50%;
+    animation: cursor-spin 9s linear infinite;
+    transition: opacity 0.2s ease;
+}
+
+/* Crosshair ticks at top / bottom / left / right */
+.reticle-ticks {
+    inset: -8px;
+    background:
+        linear-gradient(var(--c), var(--c)) top center / 1px 5px no-repeat,
+        linear-gradient(var(--c), var(--c)) bottom center / 1px 5px no-repeat,
+        linear-gradient(var(--c), var(--c)) center left / 5px 1px no-repeat,
+        linear-gradient(var(--c), var(--c)) center right / 5px 1px no-repeat;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.reticle-fill {
+    inset: 0;
+    border-radius: 50%;
+    background: rgba(56, 189, 248, 0.04);
+    transition: background 0.25s ease, border-radius 0.3s ease, box-shadow 0.25s ease;
+}
+
+/* Corner brackets, hidden until the reticle locks onto something */
+.corner {
+    width: 10px;
+    height: 10px;
+    border: 0 solid var(--c);
+    opacity: 0;
+    filter: drop-shadow(0 0 4px rgba(56, 189, 248, 0.8));
+    transition: opacity 0.2s ease;
+}
+
+.corner.tl { top: 0;    left: 0;  border-top-width: 2px;    border-left-width: 2px;  transform-origin: 0 0; }
+.corner.tr { top: 0;    right: 0; border-top-width: 2px;    border-right-width: 2px; transform-origin: 100% 0; }
+.corner.bl { bottom: 0; left: 0;  border-bottom-width: 2px; border-left-width: 2px;  transform-origin: 0 100%; }
+.corner.br { bottom: 0; right: 0; border-bottom-width: 2px; border-right-width: 2px; transform-origin: 100% 100%; }
+
+/* ---------- State: lock (small clickable element) ---------- */
+.is-lock .reticle-ring,
+.is-lock .reticle-spin,
+.is-lock .reticle-ticks {
+    opacity: 0;
+}
+
+.is-lock .reticle-fill {
+    border-radius: 6px;
+    background: rgba(56, 189, 248, 0.07);
+    box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.2);
+}
+
+.is-lock .corner {
+    opacity: 1;
+    animation: cursor-lock-in 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* ---------- State: hover (big clickable area, e.g. a card) ---------- */
+.is-hover .reticle-ring {
+    border-color: var(--c);
+    box-shadow: 0 0 18px rgba(56, 189, 248, 0.35);
+}
+
+.is-hover .reticle-fill {
+    background: rgba(56, 189, 248, 0.1);
+}
+
+.is-hover .reticle-ticks {
+    opacity: 0;
+}
+
+/* ---------- State: text (over inputs, native cursor shows) ---------- */
+.is-text .cursor-dot,
+.is-text .cursor-reticle {
+    opacity: 0;
+}
+
+/* ---------- Click pulse ---------- */
+.cursor-ripple {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+}
+
+.cursor-ripple-ring {
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--c);
+    border-radius: 50%;
+    opacity: 0;
+}
+
+.cursor-ripple.go .cursor-ripple-ring {
+    animation: cursor-ripple 0.55s ease-out;
+}
+
+/* ---------- Optional label: add data-cursor="View project" to any element ---------- */
+.cursor-label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 5px 11px;
+    border-radius: 6px;
+    background: rgba(11, 15, 25, 0.88);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    color: #e0f2fe;
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    will-change: transform;
+    transition: opacity 0.2s ease;
+}
+
+.has-label .cursor-label {
+    opacity: 1;
+}
+
+/* ---------- Keyframes ---------- */
+@keyframes cursor-spin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes cursor-lock-in {
+    from { scale: 1.8; }
+    to   { scale: 1; }
+}
+
+@keyframes cursor-ripple {
+    from { opacity: 0.8; scale: 0.3; }
+    to   { opacity: 0;   scale: 1.8; }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+    .reticle-spin,
+    .is-lock .corner,
+    .cursor-ripple.go .cursor-ripple-ring {
+        animation: none;
+    }
+}
