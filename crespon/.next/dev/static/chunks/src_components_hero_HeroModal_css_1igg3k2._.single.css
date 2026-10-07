@@ -1,0 +1,501 @@
+/* [project]/src/components/hero/HeroModal.css [app-client] (css) */
+.hm-overlay {
+  z-index: 2000;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  background: #04070dc7;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  font-family: Plus Jakarta Sans, system-ui, sans-serif;
+  transition: opacity .25s;
+  display: flex;
+  position: fixed;
+  inset: 0;
+}
+
+.hm-overlay.is-open {
+  opacity: 1;
+}
+
+.hm-dialog {
+  color: #f8fafc;
+  opacity: 0;
+  background: #0b111e;
+  border: 1px solid #38bdf847;
+  border-radius: 18px;
+  width: min(900px, 100%);
+  transition: transform .35s cubic-bezier(.22, 1, .36, 1), opacity .25s;
+  position: relative;
+  overflow: hidden;
+  transform: translateY(16px)scale(.98);
+  box-shadow: 0 30px 80px #0009;
+}
+
+.is-open .hm-dialog {
+  opacity: 1;
+  transform: none;
+}
+
+.hm-dialog:before {
+  content: "";
+  z-index: 3;
+  transform-origin: 0;
+  background: linear-gradient(90deg, #38bdf8, #818cf8, #d4af37);
+  height: 2px;
+  transition: transform .9s cubic-bezier(.22, 1, .36, 1) .2s;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  transform: scaleX(0);
+}
+
+.is-open .hm-dialog:before {
+  transform: scaleX(1);
+}
+
+.hm-close {
+  z-index: 4;
+  color: #cbd5e1;
+  cursor: pointer;
+  background: #ffffff0d;
+  border: 1px solid #ffffff1a;
+  border-radius: 50%;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  transition: color .2s, background .2s, transform .2s;
+  display: grid;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+
+.hm-close:hover {
+  color: #fff;
+  background: #ffffff1f;
+  transform: rotate(90deg);
+}
+
+.hm-close:focus-visible, .hm-btn:focus-visible, .hm-contact a:focus-visible {
+  outline-offset: 2px;
+  outline: 2px solid #38bdf8;
+}
+
+.hm-scroll {
+  overscroll-behavior: contain;
+  grid-template: "top body"
+                 "contact body" 1fr
+                 / .9fr 1.1fr;
+  max-height: min(92dvh, 760px);
+  display: grid;
+  overflow-y: auto;
+}
+
+.hm-top, .hm-contact {
+  background: #ffffff05;
+}
+
+.hm-top {
+  grid-area: top;
+  padding: clamp(22px, 3vw, 30px) clamp(20px, 3vw, 28px) 0;
+}
+
+.hm-body {
+  border-left: 1px solid #ffffff12;
+  grid-area: body;
+  min-width: 0;
+  padding: clamp(22px, 3vw, 30px) clamp(20px, 3vw, 28px);
+}
+
+.hm-contact {
+  grid-area: contact;
+  align-self: end;
+  gap: 8px;
+  margin: 0;
+  padding: 16px clamp(20px, 3vw, 28px) clamp(20px, 3vw, 28px);
+  list-style: none;
+  display: grid;
+}
+
+.hm-badge {
+  letter-spacing: .4px;
+  color: #34d399;
+  background: #34d3991a;
+  border: 1px solid #34d39947;
+  border-radius: 999px;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding: 4px 11px;
+  font-family: Fira Code, monospace;
+  font-size: 10.5px;
+  display: inline-flex;
+}
+
+.hm-badge i {
+  background: #34d399;
+  border-radius: 50%;
+  width: 6px;
+  height: 6px;
+}
+
+.hm-top h2 {
+  letter-spacing: -.02em;
+  color: #f8fafc;
+  margin: 0 0 8px;
+  font-size: clamp(21px, 3vw, 26px);
+  font-weight: 800;
+}
+
+.hm-top p {
+  color: #94a3b8;
+  margin: 0 0 18px;
+  font-size: 13.5px;
+  line-height: 1.65;
+}
+
+.hm-steps {
+  gap: 10px;
+  margin: 0 0 18px;
+  padding: 0;
+  list-style: none;
+  display: grid;
+}
+
+.hm-steps li {
+  color: #cbd5e1;
+  align-items: center;
+  gap: 10px;
+  font-size: 12.5px;
+  line-height: 1.4;
+  display: flex;
+}
+
+.hm-steps span {
+  color: #d4af37;
+  border: 1px solid #d4af3766;
+  border-radius: 50%;
+  flex-shrink: 0;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  font-family: Fira Code, monospace;
+  font-size: 10.5px;
+  display: grid;
+}
+
+.hm-contact li {
+  --c: 56, 189, 248;
+}
+
+.hm-contact a, .hm-contact li > div {
+  color: #f1f5f9;
+  overflow-wrap: anywhere;
+  background: #ffffff06;
+  border: 1px solid #ffffff12;
+  border-radius: 11px;
+  align-items: center;
+  gap: 11px;
+  padding: 9px 11px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+  text-decoration: none;
+  transition: border-color .2s, background .2s, transform .2s;
+  display: flex;
+}
+
+.hm-contact a:hover {
+  border-color: rgba(var(--c), .5);
+  background: rgba(var(--c), .06);
+  transform: translateY(-1px);
+}
+
+.hm-contact small {
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #64748b;
+  font-family: Fira Code, monospace;
+  font-size: 9.5px;
+  font-weight: 400;
+  display: block;
+}
+
+.hm-ci {
+  width: 30px;
+  height: 30px;
+  color: rgb(var(--c));
+  background: rgba(var(--c), .1);
+  border: 1px solid rgba(var(--c), .3);
+  border-radius: 9px;
+  flex-shrink: 0;
+  place-items: center;
+  display: grid;
+}
+
+.hm-form {
+  display: block;
+}
+
+.hm-row {
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  display: grid;
+}
+
+.hm-field {
+  min-width: 0;
+  margin-bottom: 12px;
+}
+
+.hm-field label {
+  color: #cbd5e1;
+  margin-bottom: 5px;
+  font-size: 12px;
+  font-weight: 500;
+  display: block;
+}
+
+.hm-field input, .hm-field select, .hm-field textarea {
+  width: 100%;
+  font: inherit;
+  color: #f8fafc;
+  --lightningcss-light: ;
+  --lightningcss-dark: initial;
+  color-scheme: dark;
+  background: #0a0f1ce6;
+  border: 1px solid #ffffff1a;
+  border-radius: 9px;
+  outline: none;
+  padding: 10px 12px;
+  font-size: 13.5px;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+.hm-field select {
+  appearance: none;
+  cursor: pointer;
+  background-image: linear-gradient(45deg, #0000 50%, #94a3b8 50%), linear-gradient(135deg, #94a3b8 50%, #0000 50%);
+  background-position: calc(100% - 17px) 52%, calc(100% - 12px) 52%;
+  background-repeat: no-repeat;
+  background-size: 5px 5px;
+  padding-right: 34px;
+}
+
+.hm-field textarea {
+  resize: vertical;
+  min-height: 96px;
+}
+
+.hm-field input::placeholder, .hm-field textarea::placeholder {
+  color: #475569;
+}
+
+.hm-field input:focus, .hm-field select:focus, .hm-field textarea:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 3px #38bdf826;
+}
+
+:is(.hm-field input:user-invalid, .hm-field textarea:user-invalid) {
+  border-color: #f87171b3;
+}
+
+.hm-actions {
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 4px;
+  display: grid;
+}
+
+.hm-btn {
+  font: inherit;
+  color: #fff;
+  cursor: pointer;
+  border: 0;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: transform .2s, box-shadow .2s, background .2s;
+  display: inline-flex;
+}
+
+.hm-btn:hover {
+  transform: translateY(-2px);
+}
+
+.hm-btn--wa {
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  box-shadow: 0 4px 14px #16a34a47;
+}
+
+.hm-btn--wa:hover {
+  box-shadow: 0 8px 20px #16a34a6b;
+}
+
+.hm-btn--mail {
+  background: linear-gradient(135deg, #0ea5e9, #6366f1);
+  box-shadow: 0 4px 14px #0ea5e947;
+}
+
+.hm-btn--mail:hover {
+  box-shadow: 0 8px 20px #0ea5e96b;
+}
+
+.hm-btn--ghost {
+  background: #ffffff0d;
+  border: 1px solid #ffffff24;
+}
+
+.hm-hint {
+  color: #64748b;
+  margin: 10px 0 0;
+  font-size: 11.5px;
+  line-height: 1.5;
+}
+
+.hm-done {
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+  padding: 24px 4px;
+  display: flex;
+}
+
+.hm-done-icon {
+  color: #34d399;
+  background: #34d3991a;
+  border: 1px solid #34d39959;
+  border-radius: 50%;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  margin-bottom: 14px;
+  animation: .5s cubic-bezier(.34, 1.56, .64, 1) both hmPop;
+  display: grid;
+}
+
+@keyframes hmPop {
+  from {
+    opacity: 0;
+    transform: scale(.5);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.hm-done h3 {
+  color: #f8fafc;
+  margin: 0 0 6px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.hm-done p {
+  color: #94a3b8;
+  max-width: 320px;
+  margin: 0 0 18px;
+  font-size: 13.5px;
+  line-height: 1.65;
+}
+
+.hm-done-actions {
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  display: flex;
+}
+
+@media (max-width: 780px) {
+  .hm-scroll {
+    grid-template: "top"
+                   "body"
+                   "contact"
+                   / 1fr;
+  }
+
+  .hm-top {
+    padding: 22px 56px 0 20px;
+  }
+
+  .hm-steps {
+    display: none;
+  }
+
+  .hm-top p {
+    margin-bottom: 4px;
+  }
+
+  .hm-body {
+    border-left: 0;
+    padding: 16px 20px 20px;
+  }
+
+  .hm-contact {
+    border-top: 1px solid #ffffff12;
+    grid-template-columns: 1fr 1fr;
+    padding: 16px 20px 20px;
+  }
+}
+
+@media (max-width: 560px) {
+  .hm-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .hm-dialog {
+    border-bottom: 0;
+    border-radius: 18px 18px 0 0;
+    width: 100%;
+    transform: translateY(40px);
+  }
+
+  .hm-scroll {
+    max-height: 94dvh;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .hm-row, .hm-actions, .hm-contact {
+    grid-template-columns: 1fr;
+  }
+
+  .hm-row {
+    gap: 0;
+  }
+
+  .hm-field input, .hm-field select, .hm-field textarea {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hm-overlay, .hm-dialog, .hm-dialog:before, .hm-close, .hm-btn {
+    transition: none !important;
+  }
+
+  .hm-dialog {
+    transform: none !important;
+  }
+
+  .hm-dialog:before {
+    transform: scaleX(1) !important;
+  }
+
+  .hm-done-icon {
+    animation: none;
+  }
+}
+
+/*# sourceMappingURL=src_components_hero_HeroModal_css_1igg3k2._.single.css.map*/

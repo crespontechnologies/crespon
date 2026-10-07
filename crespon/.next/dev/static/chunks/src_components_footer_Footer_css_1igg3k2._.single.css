@@ -1,0 +1,375 @@
+/* [project]/src/components/footer/Footer.css [app-client] (css) */
+.ft-footer {
+  color: #94a3b8;
+  margin-top: clamp(28px, 5vw, 48px);
+  margin-bottom: -70px;
+  font-family: inherit;
+  position: relative;
+}
+
+.ft-reveal {
+  opacity: 0;
+  transition: opacity .6s, transform .6s cubic-bezier(.22, 1, .36, 1);
+  transition-delay: calc(50ms + var(--i) * 90ms);
+  transform: translateY(14px);
+}
+
+.is-visible .ft-reveal {
+  opacity: 1;
+  transform: none;
+}
+
+.ft-cta {
+  background: radial-gradient(circle at 100% 0, #38bdf824, #0000 55%), linear-gradient(160deg, #0f172a99, #05080feb);
+  border: 1px solid #38bdf833;
+  border-radius: 16px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px 24px;
+  padding: clamp(18px, 3vw, 28px);
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+
+.ft-cta:before {
+  content: "";
+  transform-origin: 0;
+  background: linear-gradient(90deg, #38bdf8, #818cf8, #d4af37);
+  height: 2px;
+  transition: transform 1s cubic-bezier(.22, 1, .36, 1) .3s;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  transform: scaleX(0);
+}
+
+.is-visible .ft-cta:before {
+  transform: scaleX(1);
+}
+
+.ft-cta-text h2 {
+  letter-spacing: -.3px;
+  color: #f8fafc;
+  margin: 0 0 4px;
+  font-size: clamp(18px, 2.6vw, 24px);
+  font-weight: 700;
+}
+
+.ft-cta-text p {
+  color: #94a3b8;
+  margin: 0;
+  font-size: 13.5px;
+}
+
+.ft-cta-actions {
+  flex-wrap: wrap;
+  gap: 10px;
+  display: flex;
+}
+
+.ft-btn {
+  color: #fff;
+  border-radius: 999px;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform .2s, box-shadow .2s, background .2s, border-color .2s;
+  display: inline-flex;
+}
+
+.ft-btn:hover {
+  transform: translateY(-2px);
+}
+
+.ft-btn:focus-visible {
+  outline-offset: 3px;
+  outline: 2px solid #38bdf8;
+}
+
+.ft-btn--wa {
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  box-shadow: 0 4px 14px #16a34a47;
+}
+
+.ft-btn--wa:hover {
+  box-shadow: 0 8px 20px #16a34a6b;
+}
+
+.ft-btn--ghost {
+  background: #ffffff0a;
+  border: 1px solid #ffffff24;
+}
+
+.ft-btn--ghost:hover {
+  background: #38bdf81a;
+  border-color: #38bdf880;
+}
+
+.ft-main {
+  grid-template-columns: 1.6fr 1fr 1fr 1.3fr;
+  gap: clamp(24px, 4vw, 40px);
+  padding: clamp(28px, 5vw, 44px) 0 clamp(24px, 4vw, 32px);
+  display: grid;
+}
+
+.ft-col {
+  min-width: 0;
+}
+
+.ft-col h3 {
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: #d4af37;
+  margin: 0 0 14px;
+  font-family: Fira Code, monospace;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.ft-col ul {
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+}
+
+.ft-col a {
+  color: #cbd5e1;
+  font-size: 13.5px;
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.ft-col a:hover {
+  color: #38bdf8;
+}
+
+.ft-col a:focus-visible, .ft-legal a:focus-visible, .ft-logo:focus-visible {
+  outline-offset: 3px;
+  border-radius: 4px;
+  outline: 2px solid #38bdf8;
+}
+
+.ft-col nav ul a, nav.ft-col ul a {
+  display: inline-block;
+  position: relative;
+}
+
+nav.ft-col ul a:after {
+  content: "";
+  transform-origin: 0;
+  background: #38bdf8;
+  height: 1px;
+  transition: transform .25s;
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  transform: scaleX(0);
+}
+
+nav.ft-col ul a:hover:after {
+  transform: scaleX(1);
+}
+
+.ft-logo {
+  letter-spacing: -.4px;
+  color: #f8fafc;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: 20px;
+  font-weight: 800;
+  text-decoration: none;
+  display: inline-flex;
+}
+
+.ft-logo img {
+  object-fit: contain;
+}
+
+.ft-brand p {
+  max-width: 340px;
+  margin: 0 0 16px;
+  font-size: 13.5px;
+  line-height: 1.65;
+}
+
+.ft-steps {
+  counter-reset: ft;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+}
+
+.ft-steps li {
+  color: #94a3b8;
+  background: #ffffff08;
+  border: 1px solid #ffffff14;
+  border-radius: 999px;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  font-family: Fira Code, monospace;
+  font-size: 10.5px;
+  display: inline-flex;
+}
+
+.ft-steps li:not(:last-child):after {
+  content: "→";
+  color: #d4af37cc;
+  margin-left: 2px;
+}
+
+.ft-socials {
+  flex-wrap: wrap;
+  flex-direction: row !important;
+  gap: 8px !important;
+  margin-top: 14px !important;
+}
+
+.ft-contact li {
+  color: #cbd5e1;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13.5px;
+  display: flex;
+}
+
+.ft-contact svg {
+  color: #38bdf8;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.ft-contact a, .ft-contact span {
+  overflow-wrap: anywhere;
+}
+
+.ft-bottom {
+  color: #64748b;
+  border-top: 1px solid #ffffff12;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px 20px;
+  padding-top: 18px;
+  font-size: 12.5px;
+  display: flex;
+}
+
+.ft-bottom p {
+  margin: 0;
+}
+
+.ft-legal {
+  gap: 18px;
+  margin-right: auto;
+  display: flex;
+}
+
+.ft-legal a {
+  color: #64748b;
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.ft-legal a:hover {
+  color: #38bdf8;
+}
+
+.ft-top {
+  color: #cbd5e1;
+  cursor: pointer;
+  background: #ffffff08;
+  border: 1px solid #ffffff1a;
+  border-radius: 50%;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  transition: color .2s, border-color .2s, background .2s, transform .2s;
+  display: grid;
+}
+
+.ft-top:hover {
+  color: #fff;
+  background: #38bdf826;
+  border-color: #38bdf880;
+  transform: translateY(-2px);
+}
+
+.ft-top:focus-visible {
+  outline-offset: 3px;
+  outline: 2px solid #38bdf8;
+}
+
+@media (max-width: 960px) {
+  .ft-main {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ft-brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 560px) {
+  .ft-cta-actions {
+    width: 100%;
+  }
+
+  .ft-btn {
+    flex: 100%;
+    justify-content: center;
+  }
+
+  .ft-main {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px 16px;
+  }
+
+  .ft-col:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .ft-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ft-legal {
+    margin-right: 0;
+  }
+
+  .ft-top {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+
+  .ft-footer {
+    margin-bottom: -30px;
+    padding-bottom: 4px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ft-reveal, .ft-cta:before {
+    opacity: 1 !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+/*# sourceMappingURL=src_components_footer_Footer_css_1igg3k2._.single.css.map*/

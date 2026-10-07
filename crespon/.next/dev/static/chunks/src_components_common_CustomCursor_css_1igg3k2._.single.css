@@ -1,0 +1,256 @@
+/* [project]/src/components/common/CustomCursor.css [app-client] (css) */
+html.has-custom-cursor, html.has-custom-cursor * {
+  cursor: none !important;
+}
+
+html.has-custom-cursor :is(input:not([type="button"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]), textarea, [contenteditable=""], [contenteditable="true"]) {
+  cursor: text !important;
+}
+
+.cursor-layer {
+  --c: #38bdf8;
+  --c2: #818cf8;
+  z-index: 100000;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .25s;
+  position: fixed;
+  inset: 0;
+}
+
+.cursor-layer.is-visible {
+  opacity: 1;
+}
+
+.cursor-layer * {
+  box-sizing: border-box;
+}
+
+.cursor-dot {
+  will-change: transform;
+  width: 0;
+  height: 0;
+  transition: opacity .2s;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.cursor-dot-core {
+  background: var(--c);
+  width: 6px;
+  height: 6px;
+  box-shadow: 0 0 8px var(--c), 0 0 18px #38bdf88c;
+  border-radius: 50%;
+  transition: transform .25s cubic-bezier(.2, .8, .2, 1), background .25s;
+  position: absolute;
+  top: -3px;
+  left: -3px;
+}
+
+.is-lock .cursor-dot-core, .is-hover .cursor-dot-core {
+  background: #e0f2fe;
+  transform: scale(.7);
+}
+
+.is-down .cursor-dot-core {
+  transform: scale(.5);
+}
+
+.cursor-reticle {
+  will-change: transform, width, height;
+  width: 40px;
+  height: 40px;
+  transition: opacity .2s;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.cursor-reticle > span, .cursor-reticle > i {
+  display: block;
+  position: absolute;
+}
+
+.reticle-ring {
+  border: 1px solid #38bdf880;
+  border-radius: 50%;
+  transition: opacity .2s, border-color .25s, box-shadow .25s;
+  inset: 0;
+}
+
+.reticle-spin {
+  border: 1px dashed #818cf880;
+  border-radius: 50%;
+  transition: opacity .2s;
+  animation: 9s linear infinite cursor-spin;
+  inset: -6px;
+}
+
+.reticle-ticks {
+  background: linear-gradient(var(--c), var(--c)) top center / 1px 5px no-repeat,
+        linear-gradient(var(--c), var(--c)) bottom center / 1px 5px no-repeat,
+        linear-gradient(var(--c), var(--c)) center left / 5px 1px no-repeat,
+        linear-gradient(var(--c), var(--c)) center right / 5px 1px no-repeat;
+  opacity: .7;
+  transition: opacity .2s;
+  inset: -8px;
+}
+
+.reticle-fill {
+  background: #38bdf80a;
+  border-radius: 50%;
+  transition: background .25s, border-radius .3s, box-shadow .25s;
+  inset: 0;
+}
+
+.corner {
+  border: 0 solid var(--c);
+  opacity: 0;
+  filter: drop-shadow(0 0 4px #38bdf8cc);
+  width: 10px;
+  height: 10px;
+  transition: opacity .2s;
+}
+
+.corner.tl {
+  transform-origin: 0 0;
+  border-top-width: 2px;
+  border-left-width: 2px;
+  top: 0;
+  left: 0;
+}
+
+.corner.tr {
+  transform-origin: 100% 0;
+  border-top-width: 2px;
+  border-right-width: 2px;
+  top: 0;
+  right: 0;
+}
+
+.corner.bl {
+  transform-origin: 0 100%;
+  border-bottom-width: 2px;
+  border-left-width: 2px;
+  bottom: 0;
+  left: 0;
+}
+
+.corner.br {
+  transform-origin: 100% 100%;
+  border-bottom-width: 2px;
+  border-right-width: 2px;
+  bottom: 0;
+  right: 0;
+}
+
+.is-lock .reticle-ring, .is-lock .reticle-spin, .is-lock .reticle-ticks {
+  opacity: 0;
+}
+
+.is-lock .reticle-fill {
+  background: #38bdf812;
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px #38bdf833;
+}
+
+.is-lock .corner {
+  opacity: 1;
+  animation: .3s cubic-bezier(.2, .8, .2, 1) cursor-lock-in;
+}
+
+.is-hover .reticle-ring {
+  border-color: var(--c);
+  box-shadow: 0 0 18px #38bdf859;
+}
+
+.is-hover .reticle-fill {
+  background: #38bdf81a;
+}
+
+.is-hover .reticle-ticks, .is-text .cursor-dot, .is-text .cursor-reticle {
+  opacity: 0;
+}
+
+.cursor-ripple {
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.cursor-ripple-ring {
+  border: 1px solid var(--c);
+  opacity: 0;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: -20px;
+  left: -20px;
+}
+
+.cursor-ripple.go .cursor-ripple-ring {
+  animation: .55s ease-out cursor-ripple;
+}
+
+.cursor-label {
+  color: #e0f2fe;
+  white-space: nowrap;
+  opacity: 0;
+  -webkit-backdrop-filter: blur(8px);
+  will-change: transform;
+  background: #0b0f19e0;
+  border: 1px solid #38bdf859;
+  border-radius: 6px;
+  padding: 5px 11px;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  transition: opacity .2s;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.has-label .cursor-label {
+  opacity: 1;
+}
+
+@keyframes cursor-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes cursor-lock-in {
+  from {
+    scale: 1.8;
+  }
+
+  to {
+    scale: 1;
+  }
+}
+
+@keyframes cursor-ripple {
+  from {
+    opacity: .8;
+    scale: .3;
+  }
+
+  to {
+    opacity: 0;
+    scale: 1.8;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reticle-spin, .is-lock .corner, .cursor-ripple.go .cursor-ripple-ring {
+    animation: none;
+  }
+}
+
+/*# sourceMappingURL=src_components_common_CustomCursor_css_1igg3k2._.single.css.map*/

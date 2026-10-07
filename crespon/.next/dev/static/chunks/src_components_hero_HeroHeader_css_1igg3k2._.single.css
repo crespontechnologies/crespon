@@ -1,0 +1,213 @@
+/* [project]/src/components/hero/HeroHeader.css [app-client] (css) */
+.hero-header-wrap {
+  margin-bottom: 45px;
+  font-family: Inter, sans-serif;
+  animation: .8s cubic-bezier(.16, 1, .3, 1) forwards fadeInSlide;
+}
+
+@keyframes fadeInSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-header-grid {
+  grid-template-columns: 1.1fr .9fr;
+  align-items: center;
+  gap: 30px;
+  display: grid;
+}
+
+.hero-header-content {
+  text-align: left;
+}
+
+.hero-tagline-badge {
+  color: #94a3b8;
+  background: #0a0f1ce6;
+  border: 1px solid #ffffff14;
+  border-radius: 20px;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 5px 14px;
+  font-size: 11.5px;
+  display: inline-flex;
+  box-shadow: 0 4px 12px #0000004d;
+}
+
+.hero-tagline-badge strong {
+  color: #38bdf8;
+  font-family: Fira Code, monospace;
+  font-weight: 500;
+}
+
+.hero-header-content h1 {
+  letter-spacing: -.4px;
+  color: #f8fafc;
+  margin-bottom: 12px;
+  font-size: clamp(26px, 3.8vw, 40px);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.text-grad-pro {
+  background: linear-gradient(135deg, #38bdf8 0%, #0284c7 60%, #6366f1 100%);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+}
+
+.hero-header-content p {
+  color: #94a3b8;
+  max-width: 92%;
+  margin-bottom: 22px;
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+
+.hero-btn-group {
+  flex-wrap: wrap;
+  gap: 10px;
+  display: flex;
+}
+
+.btn-pro-pri {
+  color: #fff;
+  cursor: pointer;
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+  border: none;
+  border-radius: 20px;
+  padding: 10px 22px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all .25s;
+  box-shadow: 0 4px 14px #0ea5e940;
+}
+
+.btn-pro-pri:hover {
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px #0ea5e966;
+}
+
+.btn-pro-sec {
+  color: #cbd5e1;
+  cursor: pointer;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  background: #0f172ab3;
+  border: 1px solid #ffffff14;
+  border-radius: 20px;
+  padding: 10px 22px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all .25s;
+}
+
+.btn-pro-sec:hover {
+  color: #38bdf8;
+  background: #1e293be6;
+  border-color: #38bdf84d;
+  transform: translateY(-2px);
+}
+
+.hero-header-media {
+  background: #060913;
+  border: 1px solid #ffffff14;
+  border-radius: 14px;
+  height: 270px;
+  animation: 6s ease-in-out infinite floatMedia;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 15px 30px #00000080;
+}
+
+@keyframes floatMedia {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.hero-header-media img {
+  object-fit: cover;
+  opacity: .85;
+  width: 100%;
+  height: 100%;
+  transition: transform .6s cubic-bezier(.16, 1, .3, 1);
+}
+
+.hero-header-media:hover img {
+  opacity: .95;
+  transform: scale(1.03);
+}
+
+.hero-media-caption {
+  background: linear-gradient(to top, #04070df2, #04070d66, #0000);
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 14px 16px;
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.hero-media-caption span {
+  color: #38bdf8;
+  letter-spacing: -.2px;
+  font-family: Fira Code, monospace;
+  font-size: 11px;
+}
+
+.status-dot {
+  background-color: #10b981;
+  border-radius: 50%;
+  width: 7px;
+  height: 7px;
+  box-shadow: 0 0 8px #10b981;
+}
+
+@media (max-width: 850px) {
+  .hero-header-grid {
+    text-align: center;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-top: -50px;
+  }
+
+  .hero-header-content {
+    text-align: center;
+  }
+
+  .hero-header-content p {
+    max-width: 100%;
+  }
+
+  .hero-btn-group {
+    justify-content: center;
+  }
+
+  .hero-header-media {
+    height: 220px;
+  }
+
+  .hero-media-caption {
+    justify-content: center;
+    gap: 12px;
+  }
+}
+
+/*# sourceMappingURL=src_components_hero_HeroHeader_css_1igg3k2._.single.css.map*/

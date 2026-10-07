@@ -1,0 +1,420 @@
+/* [project]/src/components/hero/HeroCyberCommand.css [app-client] (css) */
+.cc-section {
+  margin: clamp(20px, 4vw, 32px) 0;
+  font-family: inherit;
+}
+
+.cc-card {
+  isolation: isolate;
+  opacity: 0;
+  background: linear-gradient(160deg, #0f172a8c, #030712f2);
+  border: 1px solid #38bdf82e;
+  border-radius: 16px;
+  padding: clamp(16px, 3vw, 28px);
+  transition: opacity .7s cubic-bezier(.22, 1, .36, 1), transform .7s cubic-bezier(.22, 1, .36, 1);
+  position: relative;
+  overflow: hidden;
+  transform: translateY(24px);
+  box-shadow: 0 12px 32px #00000073;
+}
+
+.is-visible .cc-card {
+  opacity: 1;
+  transform: none;
+}
+
+.cc-card:before {
+  content: "";
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  background-image: linear-gradient(#38bdf80d 1px, #0000 1px), linear-gradient(90deg, #38bdf80d 1px, #0000 1px);
+  background-size: 28px 28px;
+  transition: opacity 1.2s .3s;
+  position: absolute;
+  inset: 0;
+  -webkit-mask-image: radial-gradient(80% 80% at 50% 0, #000 20%, #0000 80%);
+  mask-image: radial-gradient(80% 80% at 50% 0, #000 20%, #0000 80%);
+}
+
+.is-visible .cc-card:before {
+  opacity: 1;
+}
+
+.cc-card:after {
+  content: "";
+  transform-origin: 0;
+  background: linear-gradient(90deg, #38bdf8, #818cf8, #d4af37);
+  height: 2px;
+  transition: transform 1s cubic-bezier(.22, 1, .36, 1) .2s;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  transform: scaleX(0);
+}
+
+.is-visible .cc-card:after {
+  transform: scaleX(1);
+}
+
+.cc-top {
+  opacity: 0;
+  border-bottom: 1px solid #ffffff12;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px 16px;
+  margin-bottom: clamp(16px, 3vw, 22px);
+  padding-bottom: 14px;
+  transition: opacity .6s .2s, transform .6s cubic-bezier(.22, 1, .36, 1) .2s;
+  display: flex;
+  transform: translateY(10px);
+}
+
+.is-visible .cc-top {
+  opacity: 1;
+  transform: none;
+}
+
+.cc-status {
+  letter-spacing: .4px;
+  text-transform: uppercase;
+  color: #38bdf8;
+  background: #38bdf814;
+  border: 1px solid #38bdf840;
+  border-radius: 999px;
+  align-items: center;
+  gap: 9px;
+  padding: 5px 13px;
+  font-family: Fira Code, monospace;
+  font-size: 11px;
+  display: inline-flex;
+}
+
+.cc-dot {
+  background: #34d399;
+  border-radius: 50%;
+  flex-shrink: 0;
+  width: 7px;
+  height: 7px;
+  position: relative;
+}
+
+.cc-dot:after {
+  content: "";
+  opacity: 0;
+  background: #34d399;
+  border-radius: 50%;
+  position: absolute;
+  inset: 0;
+}
+
+.is-visible .cc-dot:after {
+  animation: 2.4s ease-out 1s infinite ccPing;
+}
+
+@keyframes ccPing {
+  0% {
+    opacity: .6;
+    transform: scale(1);
+  }
+
+  70%, 100% {
+    opacity: 0;
+    transform: scale(2.6);
+  }
+}
+
+.cc-status-text {
+  white-space: nowrap;
+  width: 0;
+  max-width: 100%;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.is-visible .cc-status-text {
+  width: calc(var(--ch) * 1ch);
+  transition: width 1.1s steps(var(--ch), end) .5s;
+}
+
+.cc-caret {
+  background: #38bdf8;
+  width: 1px;
+  height: 12px;
+  margin-left: -6px;
+  animation: 1s step-end infinite ccBlink;
+}
+
+@keyframes ccBlink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.cc-brand {
+  color: #64748b;
+  font-family: Fira Code, monospace;
+  font-size: 11.5px;
+}
+
+.cc-brand span {
+  color: #818cf8;
+  font-weight: 600;
+}
+
+.cc-grid {
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(10px, 2vw, 14px);
+  margin: 0 0 clamp(12px, 2vw, 16px);
+  padding: 0;
+  list-style: none;
+  display: grid;
+}
+
+.cc-cell {
+  opacity: 0;
+  min-width: 0;
+  transition: opacity .6s, transform .6s cubic-bezier(.22, 1, .36, 1);
+  transition-delay: calc(.4s + var(--i) * .1s);
+  transform: translateY(18px);
+}
+
+.is-visible .cc-cell {
+  opacity: 1;
+  transform: none;
+}
+
+.cc-action {
+  --c: 56, 189, 248;
+  background: #0f172a8c;
+  border: 1px solid #ffffff14;
+  border-radius: 12px;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 18px;
+  height: 100%;
+  min-height: 120px;
+  padding: 14px;
+  text-decoration: none;
+  transition: transform .3s cubic-bezier(.22, 1, .36, 1), border-color .3s, background .3s, box-shadow .3s;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+
+.cc-action:before {
+  content: "";
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(var(--c), .14), transparent 70%);
+  opacity: 0;
+  transition: opacity .3s;
+  position: absolute;
+  inset: 0;
+}
+
+.cc-action:hover, .cc-action:focus-visible {
+  border-color: rgba(var(--c), .55);
+  box-shadow: 0 12px 28px rgba(var(--c), .16);
+  transform: translateY(-3px);
+}
+
+.cc-action:hover:before, .cc-action:focus-visible:before {
+  opacity: 1;
+}
+
+.cc-action:focus-visible {
+  outline: 2px solid rgb(var(--c));
+  outline-offset: 3px;
+}
+
+.cc-action-head {
+  align-items: center;
+  gap: 10px;
+  display: flex;
+}
+
+.cc-icon {
+  width: 32px;
+  height: 32px;
+  color: rgb(var(--c));
+  background: rgba(var(--c), .1);
+  border: 1px solid rgba(var(--c), .3);
+  border-radius: 9px;
+  flex-shrink: 0;
+  place-items: center;
+  transition: color .25s, background .25s, transform .35s cubic-bezier(.34, 1.56, .64, 1);
+  display: grid;
+}
+
+.cc-action:hover .cc-icon {
+  color: #04070d;
+  background: rgb(var(--c));
+  transform: rotate(-8deg)scale(1.08);
+}
+
+.cc-code {
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #64748b;
+  font-family: Fira Code, monospace;
+  font-size: 10px;
+}
+
+.cc-action-body {
+  flex-direction: column;
+  gap: 2px;
+  padding-right: 22px;
+  display: flex;
+}
+
+.cc-action-title {
+  color: #f8fafc;
+  font-size: clamp(13.5px, 1.8vw, 14.5px);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.cc-action-sub {
+  color: #94a3b8;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.cc-arrow {
+  color: rgb(var(--c));
+  opacity: 0;
+  font-size: 15px;
+  transition: opacity .25s, transform .25s;
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  transform: translateX(-6px);
+}
+
+.cc-action:hover .cc-arrow, .cc-action:focus-visible .cc-arrow {
+  opacity: 1;
+  transform: none;
+}
+
+.cc-metrics {
+  opacity: 0;
+  background: #030712b3;
+  border: 1px solid #ffffff12;
+  border-radius: 12px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: clamp(12px, 2vw, 16px) clamp(14px, 2.5vw, 20px);
+  transition: opacity .6s .85s, transform .6s cubic-bezier(.22, 1, .36, 1) .85s;
+  display: grid;
+  transform: translateY(14px);
+}
+
+.is-visible .cc-metrics {
+  opacity: 1;
+  transform: none;
+}
+
+.cc-metric {
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  display: flex;
+}
+
+.cc-metric + .cc-metric {
+  border-left: 1px solid #ffffff12;
+  padding-left: 14px;
+}
+
+.cc-metric-label {
+  letter-spacing: .6px;
+  color: #64748b;
+  font-family: Fira Code, monospace;
+  font-size: 10px;
+}
+
+.cc-metric-value {
+  font-variant-numeric: tabular-nums;
+  color: #38bdf8;
+  font-family: Fira Code, monospace;
+  font-size: clamp(14px, 2.2vw, 18px);
+  font-weight: 600;
+}
+
+@media (max-width: 960px) {
+  .cc-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .cc-card {
+    border-radius: 14px;
+  }
+
+  .cc-action {
+    gap: 14px;
+    min-height: 108px;
+    padding: 12px;
+  }
+
+  .cc-action-sub {
+    font-size: 11.5px;
+  }
+
+  .cc-arrow {
+    opacity: 1;
+    transform: none;
+  }
+
+  .cc-metrics {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 4px 14px;
+  }
+
+  .cc-metric {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+    padding: 10px 0;
+  }
+
+  .cc-metric + .cc-metric {
+    border-top: 1px solid #ffffff12;
+    border-left: 0;
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 380px) {
+  .cc-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cc-card, .cc-card:before, .cc-card:after, .cc-top, .cc-cell, .cc-metrics {
+    opacity: 1 !important;
+    transition: none !important;
+    transform: none !important;
+  }
+
+  .cc-status-text {
+    width: auto !important;
+    transition: none !important;
+  }
+
+  .cc-dot:after, .cc-caret {
+    animation: none !important;
+  }
+
+  .cc-caret {
+    display: none;
+  }
+}
+
+/*# sourceMappingURL=src_components_hero_HeroCyberCommand_css_1igg3k2._.single.css.map*/
